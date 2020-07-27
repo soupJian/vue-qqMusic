@@ -6,6 +6,7 @@
   1. 脚手架： `vue-cli`
   2. 自动化构建工具: `webpack`
   3. 代码规范：`eslint`
+  4. css预处理 `stylus`
 3. 架构支撑
   1. 基础组件库
   2. 状态管理 `vuex`
@@ -23,7 +24,7 @@
 ### 应用技术
 1. html css js
 2. vue.js
-3. node.js npm webpack
+3. npm
 4. es6
 ### 实战收获
 1. 组件化，模块化开发方式
