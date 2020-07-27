@@ -192,7 +192,6 @@ export default {
             this.audioSrc = res[mid]
         },
         // 获取歌词
-        // 获取歌词
         async fetchLyric(mid) {
             const {data: res} = await this.$http.get('/api/lyric?songmid='+mid)
             if(res.result == 100) {
@@ -367,11 +366,14 @@ export default {
             // 防止歌词跳动
             if (this.currentLyric) {
                 this.currentLyric.stop()
+                this.currentLyric = null
+                this.playingLyric = ''
+                this.currentLineNum = 0
             }
-            this.currentLyric = null
-            this.playingLyric = ''
-            this.currentLineNum = 0
-            this.fetchLyric(this.currentSong.mid)
+            clearTimeout(this.timer)
+            this.timer = setTimeout(() => {
+                this.fetchLyric(this.currentSong.mid)
+            },1000)
             this.local(this.historyPlay,"historyPlay")
         },
         playing() {
