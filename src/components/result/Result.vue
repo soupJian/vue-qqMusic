@@ -16,16 +16,10 @@
             <!-- 歌曲 -->
             <scroll :list="resultMusic" v-show="t==0" class="music-scroll" ref="songScroll">
                 <div>
-                    <ul class="result-list">
-                        <li v-for="(item, index) of resultMusic" :key="item.songmid" @click="selectItem(index)">
-                            <i class="icon-music"></i>
-                            {{item.songname}}---<span v-for="singer of item.singer" :key="singer.id">{{singer.name}}</span>
-                        </li>
-                    </ul>
+                    <music-item :songs="resultMusic" class="result-music"></music-item>
                     <div class="loading-container">
                         <loading v-show="!resultMusic.length && !showNoResult"/>
                     </div>
-                    
                 </div>
             </scroll>
             <!-- 歌单 -->
@@ -71,6 +65,7 @@ import scroll from '../base/Scroll'
 import Disc from '../base/Disc'
 import loading from '../base/Load'
 import singerList from '../singer/SingerList'
+import MusicItem from '../list/MusicItem'
 import NoResult from './NoResult'
 import { playListMixin } from '../../common/js/mixin'
 export default {
@@ -80,6 +75,7 @@ export default {
         Disc,
         loading,
         singerList,
+        MusicItem,
         NoResult
     },
     data() {
@@ -177,13 +173,7 @@ export default {
                 if(this.t == 12){
                     this.resultMv = res.list
                 }
-        },
-        selectItem(index) {
-            this.$store.commit('setCurrentIndex', index) //传递当前播放歌曲索引
-            this.$store.commit('setPlayList', this.resultMusic) //传递当前播放歌曲列表
-            this.$store.commit('setSequenceList', this.resultMusic) //传递顺序播放列表
-            this.$store.commit('setFullScreen',true) //传递当前播放歌曲列表
-        },
+        }
     },
     activated() {
         this.query = this.$route.params.query
@@ -255,20 +245,8 @@ export default {
         .music-scroll
             height 100%
             overflow hidden
-            .result-list
-                padding 0 20px
-                li
-                    width 90% 
-                    overflow hidden
-                    white-space nowrap
-                    text-overflow ellipsis
-                    font-size: 16px
-                    color: $color-text-d
-                    padding-bottom 20px
-                    span 
-                        margin-right 5px
-                .icon-music
-                    margin-right 5px
+            .result-music
+                padding 0 20px                
 .loading-container
     position fixed
     bottom 50%
