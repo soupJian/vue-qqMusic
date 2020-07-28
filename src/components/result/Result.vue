@@ -246,7 +246,7 @@ export default {
             height 100%
             overflow hidden
             .result-music
-                padding 0 20px                
+                padding 0 20px          
 .loading-container
     position fixed
     bottom 50%

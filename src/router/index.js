@@ -63,11 +63,6 @@ Vue.use(VueRouter)
       component: () => import ('../components/mine/MineLove.vue')
     },
     {
-      path: '/mine/love',
-      name: 'mineLove',
-      component: () => import ('../components/mine/MineLove.vue')
-    },
-    {
       path: '/mine/history',
       name: 'mineHistory',
       component: () => import ('../components/mine/MineLove.vue')
