@@ -1,29 +1,38 @@
 <template>
     <transition name="up">
-        <div class="update" v-show="showFlag">
-            <div class="back" @click="hide">
+        <div class="mineLove">
+            <div class="back" @click="back()">
                 <i class="icon-back"></i>
                 <span class="title">{{title}}</span>
             </div>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTSOPd0HJqxMveNBo17QvugNKXnFYtbY-AmOA&usqp=CAU" alt="">
+            <rank-list :ranklist="loveRank"></rank-list>
+            <no-result v-show="loveRank.length == 0" class="noResult"></no-result>
         </div>
     </transition>
 </template>
 <script>
+import { mapState} from 'vuex'
+import NoResult from '../../components/result/NoResult'
+import RankList from '../rank/RankList'
 export default {
+    components: {
+        RankList,
+        NoResult
+    },
     data() {
         return {
-            showFlag: false,
-            title: '更新中，敬请期待!!!'
+            title: '我的榜单'
         }
     },
     methods: {
-        show() {
-            this.showFlag = true
-        },
-        hide() {
-            this.showFlag = false
+        back() {
+            this.$router.back()
         }
+    },
+    computed: {
+        ...mapState({
+            loveRank: 'loveRank'
+        })
     }
 }
 </script>
@@ -34,14 +43,14 @@ export default {
     transition: all .5s;
 .up-enter, .up-leave-to
     opacity: 0;
-    transform: translateY(100%);
-.update
+    transform: translateX(100%);
+.mineLove
     position fixed
     width 100%
     top 0
     bottom 0
     z-index 11
-    background-color #ccc
+    background-color $color-background
     .back
         height 40px
         display flex
@@ -52,9 +61,6 @@ export default {
             color $color-theme
         span
             margin-left 10px
-    img 
-        position absolute
-        top 50%
-        transform translateY(-50%)
-        width 100%
+    .rank-list
+        top 40px
 </style>

@@ -27,9 +27,11 @@ export default {
           // 判断是歌单还是专辑，如果是歌单
             if(item.content_id) {
               this.$store.commit('setSongList',item)
+              this.$store.commit("setValue",'歌单')
               this.$router.push('/songList/id='+ item.content_id)
             } else if (item.albumMID) { // 如果是专辑
               this.$store.commit('setAlbum',item)
+              this.$store.commit("setValue",'专辑')
               this.$router.push('/album/id='+ item.albumMID)
             }
         }

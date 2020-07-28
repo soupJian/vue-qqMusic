@@ -56,7 +56,42 @@ Vue.use(VueRouter)
       path: '/search/:query',
       name: 'searchQuery',
       component: () => import ('../components/result/Result.vue')
-    }
+    },
+    {
+      path: '/mine/love',
+      name: 'mineLove',
+      component: () => import ('../components/mine/MineLove.vue')
+    },
+    {
+      path: '/mine/love',
+      name: 'mineLove',
+      component: () => import ('../components/mine/MineLove.vue')
+    },
+    {
+      path: '/mine/history',
+      name: 'mineHistory',
+      component: () => import ('../components/mine/MineLove.vue')
+    },
+    {
+      path: '/mine/singer',
+      name: 'mineSinger',
+      component: () => import ('../components/mine/MineSinger.vue')
+    },
+    {
+      path: '/mine/songList',
+      name: 'mineSongList',
+      component: () => import ('../components/mine/MineSongList.vue')
+    },
+    {
+      path: '/mine/album',
+      name: 'mineAlbum',
+      component: () => import ('../components/mine/MineSongList.vue')
+    },
+    {
+      path: '/mine/rank',
+      name: 'mineRank',
+      component: () => import ('../components/mine/MineRank.vue')
+    },
 ]
 
 const router = new VueRouter({

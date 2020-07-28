@@ -36,6 +36,7 @@ export default {
     methods: {
         selectSinger(singer) {
             this.$store.commit('setSinger', singer)
+            this.$store.commit('setValue',"歌手")
             this.$router.push({
             path: '/singer/mid='+singer.singer_mid
           })

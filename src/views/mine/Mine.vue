@@ -6,68 +6,38 @@
             </div>
             <div class="mine-title">个人中心</div>
             <div class="total">
-                <div class="item" v-for="item of items" :key="item.id" @click="select(item.id)">
+                <router-link tag="div" class="item" v-for="item of items" :key="item.id" :to="item.path">
                     <span>{{item.name}}</span>
-                </div>
+                </router-link>
             </div>
             <div class="copyRight">
                 <p>soupJian Music</p>
                 <p>学校：江西理工大学</p>
                 <p>联系电话：13479291739 QQ: 2242476448</p>
             </div>
-            <mine-list ref="mineList"  :title="title" :list="list"></mine-list>
-            <MineSinger ref="mineSinger"></MineSinger>
-            <update ref="update"></update>
         </div>
     </transition>
 </template>
 <script>
 import { mapState } from 'vuex'
-import MineSinger from '../../components/mine/MineSinger'
-import MineList from '../../components/mine/MineList'
-import Update from '../../components/mine/Update'
 export default {
-    components: {
-        MineList,
-        MineSinger,
-        Update
-    },
     data() {
         return {
             items: [
-                {"id": 0,"name": "我喜欢"},
-                {"id": 1,"name": "歌手"},
-                {"id": 2,"name": "播放历史"},
-                {"id": 3,"name": "歌单"},
-                {"id": 4,"name": "专辑"},
-                {"id": 5,"name": "榜单"}
+                {"id": 0,"name": "我喜欢",'path': '/mine/love'},
+                {"id": 1,"name": "歌手",'path': '/mine/singer'},
+                {"id": 3,"name": "歌单",'path': '/mine/songList'},
+                {"id": 4,"name": "专辑",'path': '/mine/album'},
+                {"id": 5,"name": "榜单",'path': '/mine/rank'},
+                {"id": 2,"name": "播放历史",'path': '/mine/history'}
             ],
-            list: [],
             title: '',
             show: false
         }
     },
     methods: {
         back() {
-            this.$router.back()
-        },
-        select(id) {
-            if(id==0) {
-                this.$refs.mineList.show()
-                this.title = '我喜欢'
-                this.list = this.loveMusic
-            }
-            if(id==1) {
-                this.$refs.mineSinger.show()
-            }
-            if(id==2) {
-                this.$refs.mineList.show()
-                this.title = '历史播放'
-                this.list = this.historyPlay
-            }
-            if(id > 2) {
-                this.$refs.update.show()
-            }
+            this.$router.push('/recommend')
         }
     },
     computed: {

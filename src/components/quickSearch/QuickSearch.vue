@@ -59,6 +59,7 @@ export default {
                     item.title = list.name
                 })
                 this.$store.commit('setAlbum',album[0])
+                this.$store.commit("setValue",'专辑')
                 this.$router.push('/album/id='+ album[0].id)
             }
             if(item.name=="歌手") {

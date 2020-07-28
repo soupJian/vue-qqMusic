@@ -1,22 +1,13 @@
 <template>
     <transition name="up">
-        <div class="mine-list" v-show="showFlag">
-            <div class="back" @click="hide">
+        <div class="mine-list">
+            <div class="back" @click="back">
                 <i class="icon-back"></i>
                 <span class="title">{{title}}</span>
             </div>
             <scroll :list="list" class="song-scroll" ref="scroll">
                 <div>
-                    <div class="song-list">
-                        <ul>
-                            <li v-for="(item, index) of list" :key="item.id" @click="selectItem(index)">
-                                <h2><span class="name">{{item.name}}</span></h2>
-                                <p>
-                                <span v-for="list of item.singer" :key="list.id">{{list.name}}</span>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
+                    <music-item :songs="list"></music-item>
                 </div>
             </scroll>
             <no-result v-show="list.length == 0 || list == undefined" class="noResult"></no-result>
@@ -26,26 +17,27 @@
 <script>
 import Scroll from '../base/Scroll'
 import NoResult from '../../components/result/NoResult'
+import MusicItem from '../list/MusicItem'
 import { playListMixin } from '../../common/js/mixin'
+import { mapState } from 'vuex'
 export default {
     mixins: [ playListMixin ],
+    computed:{
+        ...mapState({
+            loveMusic: 'loveMusic',
+            historyPlay: 'historyPlay'
+        }),
+        title() {
+            return this.$route.name == 'mineLove' ? '我喜欢': '历史播放'
+        },
+        list() {
+            return this.$route.name == 'mineLove' ? this.loveMusic: this.historyPlay
+        }
+    },
     components: {
         Scroll,
-        NoResult
-    },
-    props: {
-        title: {
-            type: String,
-            default: ''
-        },
-        list: {
-            type: Array
-        }
-    },
-    data() {
-        return {
-            showFlag: false,
-        }
+        NoResult,
+        MusicItem
     },
     methods: {
         handlePlaylist(playlist) {
@@ -54,11 +46,8 @@ export default {
             this.$refs.scroll.$el.style.bottom = bottom
             this.$refs.scroll.refresh()
         },
-        show() {
-            this.showFlag = true
-        },
-        hide() {
-            this.showFlag = false
+        back() {
+            this.$router.back()
         },
         // 点击歌曲进行播放
         selectItem(index) {
@@ -77,7 +66,7 @@ export default {
     transition: all .5s;
 .up-enter, .up-leave-to
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateX(100%);
 .mine-list
     position fixed
     width 100%

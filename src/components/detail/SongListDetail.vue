@@ -19,7 +19,6 @@ export default {
         // 检查是否存在songList对象
         checkSongList() {
             this.songList = this.$store.state.songList
-
             if (!this.songList.content_id) { 
                 // 解决刷新时候让他返回
                 this.$router.back()
@@ -44,7 +43,6 @@ export default {
                     name: item.albumname
                 }
             })
-
         }
     },
     computed: {
@@ -59,13 +57,6 @@ export default {
         this.checkSongList();
         this.fetchSongListDetail();
     }
-    // watch: {
-    //     songs() {
-    //         if(this.songs.length == 0) {
-    //             this.$store.commit("setSongList",{})
-    //         }
-    //     }
-    // }
 }
 </script>
 <style lang="stylus" scoped>

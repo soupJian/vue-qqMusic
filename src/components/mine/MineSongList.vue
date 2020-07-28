@@ -5,10 +5,10 @@
                 <i class="icon-back"></i>
                 <span class="title">{{title}}</span>
             </div>
-            <scroll :list="loveSinger" class="singer-scroll" ref="scroll">
-                <SingerList :singerList="loveSinger"></SingerList>
+            <scroll :list="list" class="singer-scroll" ref="scroll">
+                <disc :DiscList="list"/>
             </scroll>
-            <no-result v-show="loveSinger.length == 0" class="noResult"></no-result>
+            <no-result v-show="list.length == 0" class="noResult"></no-result>
         </div>
     </transition>
 </template>
@@ -16,23 +16,25 @@
 import {mapState} from 'vuex'
 import Scroll from '../base/Scroll'
 import NoResult from '../../components/result/NoResult'
-import SingerList from '../../components/singer/SingerList'
+import Disc from '../base/Disc'
 import { playListMixin } from '../../common/js/mixin'
 export default {
     mixins: [ playListMixin ],
     components: {
-        SingerList,
+        Disc,
         Scroll,
         NoResult
     },
     computed:{
         ...mapState({
-            loveSinger: 'loveSinger'
-        })
-    },
-    data() {
-        return {
-            title: '歌手'
+            loveSongList: 'loveSongList',
+            loveAlbum: 'loveAlbum'
+        }),
+        title() {
+            return this.$route.name == 'mineSongList' ? '我的歌单': '我的专辑'
+        },
+        list() {
+             return this.$route.name == 'mineSongList' ? this.loveSongList : this.loveAlbum
         }
     },
     methods: {
@@ -41,8 +43,9 @@ export default {
             // list是个vue components，.$el取元素
             this.$refs.scroll.$el.style.bottom = bottom
             this.$refs.scroll.refresh()
+            
         },
-        back() {
+        back(){
             this.$router.back()
         }
     }
@@ -55,7 +58,7 @@ export default {
     transition: all .5s;
 .up-enter, .up-leave-to
     opacity: 0;
-    transform: translateX(100%)
+    transform: translateX(100%);
 .mineLove
     position fixed
     width 100%

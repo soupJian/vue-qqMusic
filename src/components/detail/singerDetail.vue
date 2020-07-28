@@ -43,13 +43,6 @@ export default {
     activated() {
         this.checkSinger();
         this.fetchHotSong();
-    },
-    watch: {
-        hotSongs() {
-            if(this.hotSongs.length == 0) {
-                this.$store.commit("setSinger",{})
-            }
-        }
     }
 }
 </script>

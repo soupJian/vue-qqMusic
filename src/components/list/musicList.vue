@@ -18,15 +18,14 @@
                 <div class="song-list">
                     <div class="text">
                         <p @click="random"><span class="icon-play"></span>随机播放全部</p>
+                        <p @click="toggleFavorite">
+                            <span>
+                                <i :class="getFavoriteIcon()"></i>
+                            </span>
+                            <span>{{this.$store.state.value}}</span>
+                        </p>
                     </div>
-                    <ul>
-                        <li v-for="(item, index) of songs" :key="item.id" @click="selectItem(index)">
-                            <h2><span class="name">{{item.name}}</span></h2>
-                            <p>
-                            <span v-for="list of item.singer" :key="list.id">{{list.name}}</span>
-                            </p>
-                        </li>
-                    </ul>
+                    <MusicItem :songs="songs"></MusicItem>
                 </div>
             </div>
         </scroll>
@@ -39,14 +38,17 @@
 <script>
 import Scroll from '../base/Scroll'
 import loading from '../base/Load'
+import MusicItem from './MusicItem'
 import { playListMixin } from '../../common/js/mixin'
+import { listMixin } from '../../common/js/mixin'
 export default {
-    mixins: [ playListMixin ], // 组件同名方法可以覆盖mixin方法
+    mixins: [ playListMixin, listMixin ], // 组件同名方法可以覆盖mixin方法
     components: {
         Scroll,
-        loading
+        loading,
+        MusicItem
     },
-    props: ['bgImage','title','songs','value'],
+    props: ['bgImage','title','songs'],
     data() {
         return {
             showTitle: false,
@@ -171,23 +173,16 @@ export default {
       .text
         height 20px
         padding-bottom 10px 
+        display flex
+        justify-content space-between
         span 
           margin-right 6px
           line-height 20px
           white-space nowrap
           text-overflow ellipsis
           overflow hidden
-      ul
-        li
-          display flex
-          flex-direction column
-          line-height 20px
-          padding-bottom 10px
-          p
-            color $color-text-d
-            font-size $font-size-small
-            span 
-              margin-right 5px
+          .icon-favorite
+            color $color-sub-theme
   .loading-container
     position absolute
     width 100%

@@ -1,6 +1,6 @@
 <template>
     <transition name="slide">
-        <music-list :title="title" :bg-image="bgImage" :songs="songs" value="排行"></music-list> 
+        <music-list :title="title" :bg-image="bgImage" :songs="songs"></music-list> 
     </transition>
 </template>
 <script>
@@ -48,13 +48,6 @@ export default {
     activated() {
         this.checkRank();
         this.fetchRank();
-    },
-    watch: {
-        songs() {
-            if(this.songs.length == 0) {
-                this.$store.commit("setRank",{})
-            }
-        }
     }
 }
 </script>

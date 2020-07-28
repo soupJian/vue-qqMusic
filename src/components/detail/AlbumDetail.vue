@@ -1,6 +1,6 @@
 <template>
     <transition name="slide">
-        <music-list :title="title" :bg-image="bgImage" :songs="songs" value="专辑"></music-list> 
+        <music-list :title="title" :bg-image="bgImage" :songs="songs"></music-list> 
     </transition>
 </template>
 <script>
@@ -48,13 +48,6 @@ export default {
     activated() {
         this.chechAlbum();
         this.fetchAlbum();
-    },
-    watch: {
-        songs() {
-            if(this.songs.length == 0) {
-                this.$store.commit("setAlbum",{})
-            }
-        }
     }
 }
 </script>

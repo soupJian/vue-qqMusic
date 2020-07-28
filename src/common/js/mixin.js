@@ -107,3 +107,88 @@ export const singerMixin = {
     }
   }
 }
+export const listMixin = {
+  computed: {
+    ...mapState({
+      value: 'value',
+      loveSongList: 'loveSongList',
+      loveAlbum: 'loveAlbum',
+      loveRank: 'loveRank',
+      loveSinger: 'loveSinger',
+      songList: 'songList',
+      album: 'album',
+      rank: 'rank',
+      singer: 'singer'
+    })
+  },
+  methods: {
+    toggleFavorite() {
+      const index = this.isFavorite()
+      let loveList,item,loveLocal
+      let value = this.value
+      if(value == "歌单") {
+        loveList = this.loveSongList
+        item = this.songList
+        loveLocal = "loveSongList"
+      }
+      if(value == "歌手") {
+        loveList = this.loveSinger
+        item = this.singer
+        loveLocal = "loveSinger"
+      }
+      if(value == "排行") {
+        loveList = this.loveRank
+        item = this.rank
+        loveLocal = "loveRank"
+      }
+      if(value == "专辑") {
+        loveList = this.loveAlbum
+        item = this.album
+        loveLocal = "loveAlbum"
+      }
+      if(index > -1) {
+          // 已有这首收藏歌单，不再收藏
+        loveList.splice(index,1)
+      } else { // 歌单没有收藏
+        loveList.unshift(item)
+      }
+      localStorage.setItem(loveLocal, JSON.stringify(loveList))
+    },
+    getFavoriteIcon() {
+      const index = this.isFavorite()
+      if ( index > -1) {
+        return 'icon-favorite'
+      } else {
+        return 'icon-not-favorite'
+      }
+    },
+    // 判断是否收藏歌曲
+    isFavorite() {
+      let index
+      if(this.value == "歌单") {
+          index = this.loveSongList.findIndex((item) => {
+          return item.content_id === this.songList.content_id
+        })
+        return index
+      }
+      if(this.value == "排行") {
+        index = this.loveRank.findIndex((item) => {
+          return item.topId === this.rank.topId
+        })
+        return index
+      }
+      if(this.value == "专辑") {
+          index = this.loveAlbum.findIndex((item) => {
+          return item.albumMID === this.album.albumMID
+        })
+        return index
+      }
+      if(this.value == "歌手") {
+        index = this.loveSinger.findIndex((item) => {
+        return item.singer_id === this.singer.singer_id
+      })
+      return index
+    }
+    }
+  }
+}
