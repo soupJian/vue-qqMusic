@@ -85,6 +85,7 @@
                         </div>
                     </div>
                 </div>
+                <Toast title="抱歉！该歌曲暂无播放地址" v-show="audioSrc == undefined"></Toast>
             </div>
         </transition>
         <!-- 迷你播放器 -->
@@ -123,6 +124,7 @@ import Lyric from 'lyric-parser'
 import progressBar from '../progress-bar/progressBar'
 import scroll from '../base/Scroll'
 import playList from '../playList/PlayList'
+import Toast from '../base/Toast'
 import {playerMixin} from '../../common/js/mixin'
 export default {
     mixins: [playerMixin],
@@ -188,8 +190,13 @@ export default {
         },
         // 获取播放地址
         async fetchAudioSrc(mid) {
-            const { data: { data: res }} = await this.$http.get('/api/song/urls?id='+mid)
-            this.audioSrc = res[mid]
+            this.audioSrc = ''
+            const { data: res } = await this.$http.get('/api/song/urls?id='+mid)
+            if(JSON.stringify(res.data) == {}) { // 没有播放地址
+                this.audioSrc = ''
+            } else {
+                this.audioSrc = res.data[mid]
+            }
         },
         // 获取歌词
         async fetchLyric(mid) {
@@ -356,7 +363,7 @@ export default {
         },
     },
     watch: {
-        currentSong() { 
+        currentSong() {
             // 歌曲改变进行本地存储
             if(this.currentSong == undefined) {
                 this.$store.commit('setCurrentSong',{})
@@ -384,7 +391,8 @@ export default {
     components: {
         progressBar,
         scroll,
-        playList
+        playList,
+        Toast
     },
 }
 </script>

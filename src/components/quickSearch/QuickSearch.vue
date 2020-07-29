@@ -141,8 +141,8 @@ export default {
                 display flex
                 padding 10px 20px 0
                 img
-                    width 50px
-                    height 50px
+                    width 40px
+                    height 40px
                     margin-right 10px
                 p
                     color $color-text-d
