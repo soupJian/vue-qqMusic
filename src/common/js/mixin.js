@@ -69,6 +69,13 @@ export const playerMixin = {
       arr.unshift(this.currentSong)
       localStorage.setItem(name, JSON.stringify(arr))
     },
+    // 找到当前歌曲在新列表中的索引，防止切换播放顺序时会自动切歌
+    resetCurrentIndex(list) {
+      let index = list.findIndex((item) => {
+          return item.mid === this.currentSong.mid
+      })
+      this.$store.commit('setCurrentIndex',index)
+  },
   }
 }
 // 收藏歌手

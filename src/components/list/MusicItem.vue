@@ -5,7 +5,7 @@
                 <li v-for="(item, index) of songs" :key="item.id" @click="selectItem(index)">
                     <h2>
                         <span class="name">{{item.name}}</span>
-                        <span :class="getIcon(item)" @click.stop="addSong(item)"></span>
+                        <span class="icon-add" @click.stop="addSong(item)"></span>
                     </h2>
                     <p>
                         <span v-for="list of item.singer" :key="list.id">{{list.name}}</span>
@@ -38,24 +38,7 @@ export default {
             this.$store.commit('setFullScreen',true) // 传递当前播放歌曲列表
         },
         addSong(item){
-            const index = this.isPlayList(item)
-            if(index > -1) {
-                return
-            } else {
-                this.playList.push(item)
-                this.$store.commit('setPlayList', this.playList) // 传递当前播放歌曲列表
-                if(this.playList.length == 1) { // 只有一首歌那就让他播放
-                    this.$store.commit('setCurrentIndex', 0) // 传递当前播放歌曲索引
-                }
-            }
-        },
-        getIcon(item) {
-            const index = this.isPlayList(item)
-            if(index > -1) {
-                return ''
-            } else {
-                return 'icon-add'
-            }
+            this.$store.commit("setSongItem",item)
         },
         isPlayList(item) {
             // 判断播放列表中是否包含这首歌

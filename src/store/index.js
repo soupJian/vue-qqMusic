@@ -22,7 +22,8 @@ export default new Vuex.Store({
     loveSongList: JSON.parse(localStorage.getItem('loveSongList')) || [], // 收藏的歌单
     loveMusic: JSON.parse(localStorage.getItem('loveMusic')) || [], // 喜欢的歌曲
     loveRank: JSON.parse(localStorage.getItem('loveRank')) || [], // 收藏的排行榜
-    value: '' // 解决收藏歌单专辑排行调用一个组件，难以识别收藏是哪个问题
+    value: '' ,// 解决收藏歌单专辑排行调用一个组件，难以识别收藏是哪个问题
+    songItem: {} // 点击歌曲右边的加号传递歌曲
   },
   mutations: {
     // 点击歌手进行切换详情页，传递singer
@@ -73,6 +74,10 @@ export default new Vuex.Store({
     // 解决收藏歌单专辑排行调用一个组件，难以识别收藏是哪个问题
     setValue(state,value) {
       state.value = value
+    },
+    // 点击歌曲右边的加号传递歌曲
+    setSongItem(state,item) {
+      state.songItem = item
     }
   },
   actions: {

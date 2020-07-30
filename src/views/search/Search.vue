@@ -105,7 +105,6 @@ export default {
     },
     activated() {
         this.query = ''
-        this.$refs.query.focus()
         this.historyQuery = JSON.parse(localStorage.getItem('historyQuery')) || []
     }
 }

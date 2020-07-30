@@ -177,7 +177,6 @@ export default {
     },
     activated() {
         this.query = this.$route.params.query
-        this.fetchSearch()
     },
     watch: {
         query() {
@@ -186,7 +185,6 @@ export default {
             }
             this.resultMusic = [] // 歌曲列表
             this.resultSongList = [] // 歌单列表
-            this.resultLyric = []  // 歌词列表
             this.resultAlbum = [] // 专辑列表
             this.resultSinger = [] // 歌手列表
             this.resultMv = [] // MV列表

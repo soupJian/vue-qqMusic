@@ -6,6 +6,7 @@
       <router-view></router-view>
     </keep-alive>
     <player/>
+    <operator-song></operator-song>
   </div>
 </template>
 
@@ -13,11 +14,13 @@
 import MHeader from './components/app/m-header/Mheader'
 import Tab from './components/base/Tab'
 import player from './components/play/Player'
+import  OperatorSong from './components/operatorSong/OperatorSong'
 export default {
   components: {
     MHeader,
     Tab,
-    player
+    player,
+    OperatorSong
   },
   data() {
     return {

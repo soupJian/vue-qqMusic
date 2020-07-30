@@ -87,6 +87,11 @@ Vue.use(VueRouter)
       name: 'mineRank',
       component: () => import ('../components/mine/MineRank.vue')
     },
+    {
+      path: '/comment/:id',
+      name: 'comment',
+      component: () => import ('../components/comment/Comment.vue')
+    }
 ]
 
 const router = new VueRouter({

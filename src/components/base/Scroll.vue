@@ -27,7 +27,11 @@ export default {
         click:{
             type: Boolean,
             default: true
-        }
+		},
+		pullUp: {
+			type: Boolean,
+			default: false
+		}
 	},
 	methods: {
 		initScroll() {
@@ -44,7 +48,16 @@ export default {
                     // 监听到scroll事件和位置，pos是个对象有X和Y轴的属性
                     me.$emit('scroll', pos)
                 })
-            }
+			}
+			if(this.pullUp) { // 监听上拉加载事件
+				// scrollEnd：scroll停止，scrollToEnd：scroll滚动到底部
+                this.scroll.on('scrollEnd', () => {
+                    if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+                        // 小于(this.scroll.maxScrollY + 50)快滚动到底部
+                        this.$emit('scrollToEnd')
+                    }
+                })
+			}
 		},
 		refresh() {
 			this.scroll && this.scroll.refresh();	

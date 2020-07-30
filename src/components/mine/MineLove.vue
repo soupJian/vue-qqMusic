@@ -90,31 +90,7 @@ export default {
         top 40px
         bottom 0
         width 100%
-        .song-list
-            padding 0 30px
-            .text
-                height 20px
-                padding-bottom 10px 
-                span 
-                    margin-right 6px
-                    line-height 20px
-                    white-space nowrap
-                    text-overflow ellipsis
-                    overflow hidden
-            ul
-                li
-                    display flex
-                    flex-direction column
-                    line-height 20px
-                    padding-bottom 10px
-                    p
-                        color $color-text-d
-                        font-size $font-size-small
-                        white-space nowrap
-                        overflow hidden
-                        text-overflow ellipsis
-                        span 
-                            margin-right 5px
+        padding 20px 20px 0
         .noResult
             top 40px
 

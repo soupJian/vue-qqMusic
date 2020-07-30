@@ -197,6 +197,13 @@ export default {
             } else {
                 this.audioSrc = res.data[mid]
             }
+            if(this.audioSrc == undefined) {
+                clearTimeout(this.timeAudio)
+                this.timeAudio = setTimeout(() => {
+                    // 播放下一首
+                    this.changeIndex(1)
+                },3000)
+            }
         },
         // 获取歌词
         async fetchLyric(mid) {
@@ -295,13 +302,6 @@ export default {
                 [arr[j], arr[i]] = [arr[i], arr[j]];
             }
             return arr;
-        },
-        // 找到当前歌曲在新列表中的索引，防止切换播放顺序时会自动切歌
-        resetCurrentIndex(list) {
-            let index = list.findIndex((item) => {
-                return item.mid === this.currentSong.mid
-            })
-            this.$store.commit('setCurrentIndex',index)
         },
         // video的时间更新属性
         updateTime(e) {
