@@ -4,6 +4,7 @@
     </transition>
 </template>
 <script>
+import { mapState} from 'vuex'
 import musicList from '../list/musicList'
 export default {
     components: {
@@ -11,14 +12,12 @@ export default {
     },
     data() {
         return {
-            singer: {},
             hotSongs: [] // 歌手热门歌曲
         }
     },
     methods: {
         // 检查是否存在singer对象
         checkSinger() {
-            this.singer = this.$store.state.singer
             if (!this.singer.singer_id) {
                 // 没有this.singer.id则自动跳转singer
                 this.$router.push("/singer")
@@ -33,6 +32,9 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            singer: 'singer'
+        }),
         title() {
             return this.singer.singer_name
         },
@@ -40,9 +42,14 @@ export default {
             return this.singer.singer_pic
         }
     },
-    activated() {
-        this.checkSinger();
-        this.fetchHotSong();
+    watch: {
+        singer() {
+            this.fetchHotSong()
+        }
+    },
+    mounted() {
+        this.checkSinger()
+        this.fetchHotSong()
     }
 }
 </script>

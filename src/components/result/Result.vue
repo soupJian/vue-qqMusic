@@ -19,6 +19,7 @@
                     <music-item :songs="resultMusic" class="result-music"></music-item>
                     <div class="loading-container">
                         <loading v-show="!resultMusic.length && !showNoResult"/>
+                        <no-result v-show="showNoResult"></no-result>
                     </div>
                 </div>
             </scroll>
@@ -28,6 +29,7 @@
                     <disc :DiscList="resultSongList"/>
                     <div class="loading-container">
                         <loading v-show="!resultSongList.length && !showNoResult"/>
+                        <no-result v-show="showNoResult"></no-result>
                     </div>
                 </div>
             </scroll>
@@ -37,6 +39,7 @@
                     <disc :DiscList="resultAlbum"/>
                     <div class="loading-container">
                         <loading v-show="!resultAlbum.length && !showNoResult"/>
+                        <no-result v-show="showNoResult"></no-result>
                     </div>
                 </div>
             </scroll>
@@ -47,6 +50,7 @@
                 </div>
                 <div class="loading-container">
                         <loading v-show="!resultSinger.length && !showNoResult"/>
+                        <no-result v-show="showNoResult"></no-result>
                 </div>
             </scroll>
             <!-- mv -->
@@ -56,7 +60,6 @@
                 </div>
             </scroll>
         </div>
-        <no-result v-show="showNoResult"></no-result>
         <router-view></router-view>
     </div>
 </template>
@@ -116,6 +119,7 @@ export default {
             this.fetchSearch()
         },
          async fetchSearch() {
+            this.showNoResult = false
             // 进行以下判断，如果每个数组已经存在了，就不需要在发送请求了
             if (this.t == 0 && this.resultMusic.length != 0) return
             if (this.t == 2 && this.resultSongList.length !=0) return 

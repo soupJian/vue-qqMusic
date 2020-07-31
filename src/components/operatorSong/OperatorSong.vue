@@ -55,17 +55,18 @@ export default {
             this.$store.commit('setSongItem',{})
         },
         next() {
-            // 如果下一首就是这首歌那么就不用添加 this.currentIndex初始值为 -1
-            if(this.playList.length > this.currentIndex+1 && this.playList[this.currentIndex+1].mid == this.songItem.mid) {
-                return 
+            if(this.currentIndex == -1) { // 如果播放列表为空
+                this.playList.push(this.songItem)
+            } else { // 不为空
+                // 检索歌曲是否在原列表中
+                let index = this.playList.findIndex((item) => {
+                    return item.mid === this.songItem.mid
+                })
+                if(index>-1) { // 歌曲存在于原列表中,先删除
+                    this.playList.splice(index,1)
+                }
+                this.playList.splice(this.currentIndex+1,0,this.songItem)
             }
-            let index = this.playList.findIndex((item) => {
-                return item.mid === this.songItem.mid
-            })
-            if(index>-1) { // 歌曲存在于原列表中,先删除
-                this.playList.splice(index,1)
-            }                                                                                                               
-            this.playList.splice(this.currentIndex+1,0,this.songItem)
             this.$store.commit('setPlayList', this.playList) // 传递当前播放歌曲列表
             this.$store.commit('setSequenceList', this.playList) // 传递当前播放歌曲列表
             if(this.playList.length == 1) { // 之前没有歌现在插入一首就播放

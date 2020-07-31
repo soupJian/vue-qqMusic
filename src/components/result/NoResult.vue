@@ -1,7 +1,6 @@
 <template>
     <div class="no_result">
         <img src="https://m.xiongmaocar.com/imgs/pc/searchNotImg.png">
-        <span>{{title}}</span>
     </div>
 </template>
 <script>
@@ -26,6 +25,4 @@ export default {
     flex-direction column
     justify-content center
     align-items center
-    span 
-        margin-top 20px
 </style>

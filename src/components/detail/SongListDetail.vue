@@ -5,20 +5,19 @@
 </template>
 <script>
 import musicList from '../list/musicList'
+import { mapState} from 'vuex'
 export default {
     components: {
         musicList
     },
     data() {
         return {
-            songList: {}, // 歌单对象,
             songs: []
         }
     },
     methods: {
         // 检查是否存在songList对象
         checkSongList() {
-            this.songList = this.$store.state.songList
             if (!this.songList.content_id) { 
                 // 解决刷新时候让他返回
                 this.$router.back()
@@ -46,6 +45,9 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            songList: 'songList'
+        }),
         title() {
             return this.songList.title
         },
@@ -53,10 +55,15 @@ export default {
             return this.songList.cover
         }
     },
-    activated() {
+    mounted() {
         this.checkSongList();
         this.fetchSongListDetail();
-    }
+    },
+    watch: {
+        songList() {
+            this.fetchSongListDetail()
+        }
+    },
 }
 </script>
 <style lang="stylus" scoped>
