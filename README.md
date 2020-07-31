@@ -30,4 +30,4 @@
 1. 组件化，模块化开发方式
 2. 第三方插件的熟练运用
 3. 原生App交互
-### 项目预览位置 https://www.bilibili.com/video/BV1xA411v73G
+### 项目预览位置  https://www.bilibili.com/video/BV1aa4y1E7te/
