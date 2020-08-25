@@ -31,3 +31,4 @@
 2. 第三方插件的熟练运用
 3. 原生App交互
 ### 项目预览位置  https://www.bilibili.com/video/BV1aa4y1E7te/
+###  线上访问地址:  http://www.tj123.xyz:3000
