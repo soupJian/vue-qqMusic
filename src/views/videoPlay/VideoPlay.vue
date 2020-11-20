@@ -77,6 +77,9 @@ export default {
     computed:{
         vid(){
             return this.$route.params.vid
+        },
+        playing(){
+            return this.$store.state.playing
         }
     },
     methods:{
@@ -152,6 +155,10 @@ export default {
             this.hasmore = false
             this.isactive = true
             this.pageSize = 20
+            if(this.playing == false) {
+                return
+            }
+            this.$store.commit('setPlaying',false)
         }
     }
 }
@@ -165,11 +172,11 @@ export default {
       transition: all 0.8s ease;
     }
 .mv
+    z-index 999 !important
     position fixed
     width 100%
     top 0
     bottom 0
-    z-index 10
     background-color $color-background
     .back
         height 40px
