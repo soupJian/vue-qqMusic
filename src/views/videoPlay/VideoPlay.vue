@@ -146,6 +146,12 @@ export default {
         this.fetchMv()
         this.fetchPlay()
     },
+    acativated(){
+        if(this.playing == false) {
+                return
+        }
+        this.$store.commit('setPlaying',false)
+    },
     watch:{
         vid(){
             this.mvRecommend = []
@@ -155,10 +161,6 @@ export default {
             this.hasmore = false
             this.isactive = true
             this.pageSize = 20
-            if(this.playing == false) {
-                return
-            }
-            this.$store.commit('setPlaying',false)
         }
     }
 }
