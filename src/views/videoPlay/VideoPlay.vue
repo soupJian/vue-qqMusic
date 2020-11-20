@@ -147,7 +147,6 @@ export default {
         this.fetchPlay()
     },
     activated(){
-        console.log(this.playing);
         if(this.playing == false) {
                 return
         }
