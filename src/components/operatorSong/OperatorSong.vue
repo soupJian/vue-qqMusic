@@ -21,9 +21,9 @@
                             <i :class="getFavoriteIcon(songItem)"></i>
                             <span>添加到我喜欢</span>
                         </li>
-                        <li v-show="songItem.mv && songItem.mv.vid != ''">
+                        <li v-show="songItem.mv && songItem.mv.vid != ''" @click="toMV(songItem)">
                             <i class="icon-play"></i>
-                            <span @click="toMV(songItem)">MV</span>
+                            <span>MV</span>
                         </li>
                         <li @click="getComment(songItem)">
                             <i class="icon-add"></i>
