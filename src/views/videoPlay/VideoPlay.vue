@@ -146,7 +146,8 @@ export default {
         this.fetchMv()
         this.fetchPlay()
     },
-    acativated(){
+    activated(){
+        console.log(this.playing);
         if(this.playing == false) {
                 return
         }
