@@ -67,9 +67,8 @@ export default {
                 .name
                     display flex
                     justify-content space-between
-                    width calc(100% - 20px)
                     .singer_name
-                        max-width  calc(100% - 50px)
+                        flex 1
                         white-space nowrap
                         overflow hidden
                         margin-bottom 10px

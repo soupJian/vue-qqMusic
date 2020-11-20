@@ -5,8 +5,8 @@
                 <span>详细搜索</span>
                 <span class="span_query">{{query}}</span>
             </div>
-            <div class="quick_singer_wrap" v-for="(item) of quickObj" :key="item.id">
-                <div v-if="item.itemlist.length > 0">
+            <div class="quick_singer_wrap" v-for="item of quickObj" :key="item.type">
+                <div v-show="item.itemlist.length > 0">
                     <div class="quick_singer_title">{{item.name}}</div>
                     <div class="quick_singer_item" v-for="list of item.itemlist" :key="list.id" @click="selectItem(item,list)">
                         <img :src="list.pic" v-if="list.pic">
@@ -43,9 +43,6 @@ export default {
     methods: {
         async quickSearch() {
             const {data: { data: res }} = await this.$http.get('/api/search/quick?key='+this.query)
-            if(res.album.itemlist.length == 0) {
-                return
-            }
             this.quickObj = res
         },
         selectItem(item,list) {
@@ -79,9 +76,12 @@ export default {
             if(item.name=="单曲") {
                 this.searchOne(list.name,list.singer)
             }
+            if(item.name=="MV"){
+                this.$router.push('/mv/'+list.vid)
+            }
             this.local()
         },
-        async searchOne(name,singer) { // 解决搜索时候单曲没有时间，专辑图片问题
+        async searchOne(name,singer) { // 解决快速搜索单曲没有歌曲的专辑信息，获取不到图片信息问题
             const {data:{data:res}} = await this.$http.get('/api/song/find?key='+`${name+singer}`)
             res.mid = res.songmid
             res.name = res.songname

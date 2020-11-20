@@ -52,11 +52,11 @@ export default new Vuex.Store({
     },
     // 控制顺序播放列表
     setSequenceList(state, list){
-      state.sequenceList = list
+      state.sequenceList = JSON.parse(JSON.stringify(list))
     },
     // 控制当前播放列表
     setPlayList(state, list){
-      state.playList = list
+      state.playList = JSON.parse(JSON.stringify(list))
       state.currentSong = state.playList[state.currentIndex]
     },
     setCurrentSong(state,currentSong) {
@@ -78,6 +78,14 @@ export default new Vuex.Store({
     // 点击歌曲右边的加号传递歌曲
     setSongItem(state,item) {
       state.songItem = item
+    },
+    // 清空我的收藏
+    clearLoveMusic(state){
+      state.loveMusic = []
+    },
+    // 清空历史播放
+    clearHistoryPlay(state){
+      state.historyPlay = []
     }
   },
   actions: {

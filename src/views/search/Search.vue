@@ -19,16 +19,16 @@
                     <!-- 历史搜索 -->
                     <div class="history-search" v-show="historyQuery.length > 0">
                         <h1 class="title">
-                                <span class="text">搜索历史</span>
-                                <span class="clear" @click="showConfirm">
-                                    <i class="icon-clear"></i>
-                                </span>
-                            </h1>
-                            <scroll class="historyScroll" :list="historyQuery">
-                                <ul>
-                                    <li v-for="(item,index) of historyQuery" :key="index" class="history-item" @click="addQuery(item)">{{item}}</li>
-                                </ul>
-                            </scroll>
+                            <span class="text">搜索历史</span>
+                            <span class="clear" @click="showConfirm">
+                                <i class="icon-clear"></i>
+                            </span>
+                        </h1>
+                        <scroll class="historyScroll" :list="historyQuery">
+                            <ul>
+                                <li v-for="(item,index) of historyQuery" :key="index" class="history-item" @click="addQuery(item)">{{item}}</li>
+                            </ul>
+                        </scroll>
                     </div>
                     <!-- 热门搜索 -->
                     <div class="hotSearch">

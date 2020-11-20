@@ -13,7 +13,7 @@
             <div class="copyRight">
                 <p>soupJian Music</p>
                 <p>学校：江西理工大学</p>
-                <p>联系电话：13479291739 QQ: 2242476448</p>
+                <p>微信电话：13479291739  QQ: 2242476448</p>
             </div>
         </div>
     </transition>

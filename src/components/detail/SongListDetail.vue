@@ -41,6 +41,9 @@ export default {
                     mid: item.albummid,
                     name: item.albumname
                 }
+                item.mv = {
+                    vid: item.vid || ''
+                }
             })
         }
     },
@@ -61,6 +64,9 @@ export default {
     },
     watch: {
         songList() {
+            if(this.songList == undefined){
+                return
+            }
             this.fetchSongListDetail()
         }
     },

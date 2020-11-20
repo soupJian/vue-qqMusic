@@ -21,6 +21,10 @@
                             <i :class="getFavoriteIcon(songItem)"></i>
                             <span>添加到我喜欢</span>
                         </li>
+                        <li v-show="songItem.mv && songItem.mv.vid != ''">
+                            <i class="icon-play"></i>
+                            <span @click="toMV(songItem)">MV</span>
+                        </li>
                         <li @click="getComment(songItem)">
                             <i class="icon-add"></i>
                             <span>获取评论</span>
@@ -72,6 +76,10 @@ export default {
             if(this.playList.length == 1) { // 之前没有歌现在插入一首就播放
                 this.$store.commit('setCurrentIndex', 0) // 传递当前播放歌曲索引
             }
+        },
+        toMV(item){
+            this.$router.push('/mv/'+item.mv.vid)
+            this.hide()
         },
         getComment(item) {
             this.hide()

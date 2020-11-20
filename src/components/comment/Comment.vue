@@ -79,7 +79,7 @@ export default {
                 item.rootcommentcontent = item.rootcommentcontent.replace(/\\n/g,"<br/>")
             })
             // 检查是否还有更多
-            if(this.pageNo * 20 >= this.total) {
+            if(this.pageSize >= this.total) {
                 this.hasMore = false
             }
         },
@@ -110,7 +110,7 @@ export default {
     watch: {
         id() {
             this.getComment()
-            this.pageNo = 1,
+            this.pageSize = 20,
             this.title = '',
             this.hotComment = [],
             this.comment = [],
@@ -155,7 +155,7 @@ export default {
             overflow hidden
             .item 
                 ul
-                    padding 20px
+                    padding 10px
                     li
                         display flex
                         padding 10px 0

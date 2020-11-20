@@ -5,8 +5,18 @@
                 <i class="icon-back"></i>
                 <span class="title">{{title}}</span>
             </div>
+            <!-- 弹窗是否清除所有 -->
+            <confirm ref="confirm" :text="confirmText" confirmBtnText="清空"
+                    @confirm="clearAll"
+            ></confirm>
             <scroll :list="list" class="song-scroll" ref="scroll">
                 <div>
+                    <h1 class="title" v-show="list.length > 0">
+                        <span class="text">清空列表</span>
+                        <span class="clear" @click="showConfirm">
+                            <i class="icon-clear"></i>
+                        </span>
+                    </h1>
                     <music-item :songs="list"></music-item>
                 </div>
             </scroll>
@@ -18,6 +28,8 @@
 import Scroll from '../base/Scroll'
 import NoResult from '../../components/result/NoResult'
 import MusicItem from '../list/MusicItem'
+import Confirm from '../base/Confirm'
+
 import { playListMixin } from '../../common/js/mixin'
 import { mapState } from 'vuex'
 export default {
@@ -30,6 +42,9 @@ export default {
         title() {
             return this.$route.name == 'mineLove' ? '我喜欢': '历史播放'
         },
+        confirmText(){
+            return this.$route.name == 'mineLove' ? '是否清空所有喜欢的歌曲': '是否清空所有的播放历史'
+        },
         list() {
             return this.$route.name == 'mineLove' ? this.loveMusic: this.historyPlay
         }
@@ -37,7 +52,8 @@ export default {
     components: {
         Scroll,
         NoResult,
-        MusicItem
+        MusicItem,
+        Confirm
     },
     methods: {
         handlePlaylist(playlist) {
@@ -55,6 +71,19 @@ export default {
             this.$store.commit('setPlayList', this.list) // 传递当前播放歌曲列表
             this.$store.commit('setSequenceList', this.list) // 传递顺序播放列表
             this.$store.commit('setFullScreen',true) // 传递当前播放歌曲列表
+        },
+        // 清除所有的
+        clearAll(){
+            if(this.$route.name === 'mineLove') {
+                localStorage.removeItem('loveMusic')
+                this.$store.commit('clearLoveMusic')
+            } else {
+                localStorage.removeItem('historyPlay')
+                this.$store.commit('clearHistoryPlay')
+            }
+        },
+        showConfirm(){
+            this.$refs.confirm.show()
         }
     }
 }
@@ -89,9 +118,11 @@ export default {
         overflow hidden
         top 40px
         bottom 0
-        width 100%
+        left 0
+        right 0
         padding 20px 20px 0
-        .noResult
-            top 40px
-
+        .title
+            height 30px 
+            display flex
+            justify-content space-between
 </style>

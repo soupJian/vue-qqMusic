@@ -3,7 +3,7 @@
     <router-link tag="div" class="mine" to="/mine">
         <i class="icon-mine"></i>
       </router-link>
-		<h1 class="text">SoupJian Music</h1>
+		<h1 class="text">soupJian Music</h1>
     <router-link tag="div" class="search" to="/search">
       <i class="icon-search"></i>
     </router-link>

@@ -10,7 +10,7 @@ Vue.prototype.$http = axios
 // lazyload
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {
-  loading: require('./assets/default.png')
+  loading: require('./assets/logo.png')
 })
 
 Vue.config.productionTip = false

@@ -28,6 +28,10 @@ export default {
             type: Boolean,
             default: true
 		},
+		dblclick:{
+			type: Boolean,
+			default: true
+		},
 		pullUp: {
 			type: Boolean,
 			default: false
@@ -39,7 +43,8 @@ export default {
 				probeType: this.probeType,
                 /* 可以触发点击事件*/
 				click: this.click,
-				scrollX: true
+				scrollX: true,
+				dblclick: this.dblclick
 			})
 			if (this.listenScroll) {
                 let me = this

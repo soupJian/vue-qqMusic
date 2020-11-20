@@ -42,7 +42,8 @@
                                     class="text"
                                     v-for="(line, index) in currentLyric.lines"
                                     :key="index"
-                                    :class="{'current': currentLineNum === index}">
+                                    :class="{'current': currentLineNum === index}"
+                                    @dblclick="playCurrentLyric(line)">
                                     {{line.txt}}
                                 </p>
                                 <p v-show="currentLyric.lines.length === 0" class="nolyric">
@@ -361,6 +362,15 @@ export default {
         showPlaylist() {
             this.$refs.playList.show()
         },
+        // 双击歌词播放
+        playCurrentLyric(line){
+            const currentTime = line.time
+            this.$refs.audio.currentTime = currentTime / 1000
+            // 拉动bar进度条后歌词跟着进度条变化到和歌曲一样的
+            if (this.currentLyric) {
+                this.currentLyric.seek(currentTime)
+            }
+        }
     },
     watch: {
         currentSong() {

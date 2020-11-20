@@ -91,6 +91,11 @@ Vue.use(VueRouter)
       path: '/comment/:id',
       name: 'comment',
       component: () => import ('../components/comment/Comment.vue')
+    },
+    {
+      path: '/mv/:vid',
+      name: 'mv',
+      component: () => import ('../views/videoPlay/VideoPlay.vue')
     }
 ]
 

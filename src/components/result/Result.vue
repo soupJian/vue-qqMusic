@@ -55,8 +55,17 @@
             </scroll>
             <!-- mv -->
             <scroll :list="resultMusic" v-show="t==12" class="music-scroll">
-                <div>
-                    暂未开发......
+                <div class="mv_scroll">
+                    <div class="item_mv" v-for="item of resultMv" :key="item.docid" @click="playMv(item.v_id)">
+                        <img v-lazy="item.mv_pic_url" alt="">
+                        <div class="name">{{item.mv_name}}</div>
+                        <div class="singer">{{item.singer_name}}</div>
+                        <div class="count">播放次数： {{item.play_count}}</div>
+                    </div>
+                    <div class="loading-container">
+                        <loading v-show="!resultMv.length && !showNoResult"/>
+                        <no-result v-show="showNoResult"></no-result>
+                    </div>
                 </div>
             </scroll>
         </div>
@@ -177,6 +186,9 @@ export default {
                 if(this.t == 12){
                     this.resultMv = res.list
                 }
+        },
+        playMv(vid){
+            this.$router.push('/mv/'+vid)
         }
     },
     activated() {
@@ -248,7 +260,31 @@ export default {
             height 100%
             overflow hidden
             .result-music
-                padding 0 20px          
+                padding 0 20px
+            
+            .item_mv
+                padding 0 10px 20px
+                position relative
+                img 
+                    width 100%
+                    border-radius 5px
+                .name,.singer,.count
+                    position absolute
+                    left 20px
+                .name
+                    top 10px
+                    width calc(100% - 20px)
+                    display -webkit-box
+                    -webkit-box-orient vertical
+                    -webkit-line-clamp 2
+                    text-overflow ellipsis
+                    overflow hidden
+                .singer
+                    top 55px
+                    font-size 12px
+                .count
+                    bottom 30px
+
 .loading-container
     position fixed
     bottom 50%
