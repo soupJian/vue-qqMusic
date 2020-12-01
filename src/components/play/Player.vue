@@ -373,7 +373,10 @@ export default {
         }
     },
     watch: {
-        currentSong() {
+        currentSong(newSong,oldSong) {
+            if(newSong.mid === oldSong.mid){
+                return
+            }
             // 歌曲改变进行本地存储
             if(this.currentSong == undefined) {
                 this.$store.commit('setCurrentSong',{})
