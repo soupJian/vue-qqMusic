@@ -80,6 +80,7 @@ import singerList from '../singer/SingerList'
 import MusicItem from '../list/MusicItem'
 import NoResult from './NoResult'
 import { playListMixin } from '../../common/js/mixin'
+import request from '../../common/js/request'
 export default {
     mixins: [ playListMixin ],
     components: {
@@ -136,7 +137,10 @@ export default {
             if (this.t == 9 && this.resultSinger.length !=0) return
             if (this.t == 12 && this.resultMv.length !=0) return
             if(!this.query) return
-            const { data: { data:res } } = await this.$http.get('/api/search',{params:{t: this.t,key: this.query}})
+            const { data: { data:res } } = await request({
+                url: '/search',
+                data: {t: this.t,key: this.query}
+            })
                 if(res.list.length == 0) { // 表示查询不到
                     this.showNoResult = true
                 }

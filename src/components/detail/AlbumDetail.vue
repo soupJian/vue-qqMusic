@@ -6,6 +6,7 @@
 <script>
 import musicList from '../list/musicList'
 import { mapState} from 'vuex'
+import request from '../../common/js/request'
 export default {
     components: {
         musicList
@@ -27,7 +28,9 @@ export default {
         // 获取歌手热门歌曲
         async fetchAlbum() {
             this.songs = []
-            const { data: res}= await this.$http.get('/api/album/songs?albummid=' + this.album.albumMID)
+            const { data: res}= await request({
+                url: '/album/songs?albummid=' + this.album.albumMID
+            })
             // 成功
             if(res.result == 100) {
                 this.songs = res.data.list

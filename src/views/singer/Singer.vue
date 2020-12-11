@@ -18,6 +18,7 @@ import SingerList from '../../components/singer/SingerList'
 import Loading from '../../components/base/Load'
 import Scroll from '../../components/base/Scroll'
 import { playListMixin } from '../../common/js/mixin'
+import request from '../../common/js/request'
 export default {
     mixins: [ playListMixin ], // 组件同名方法可以覆盖mixin方法
 	components:{
@@ -41,7 +42,9 @@ export default {
         },
         // 获取歌手分类
         async fetchCategory() {
-            const { data: { data: res } } = await this.$http.get('/api/singer/category')
+            const { data: { data: res } } = await request({
+                url: '/singer/category'
+            })
             this.categoryList = {
                 sex: res.sex,
                 area: res.area,
@@ -52,7 +55,10 @@ export default {
         async fetchSingerlist (params) {
             /* 利用params将点击的属性传给接口*/
             this.singerList = []
-            const res = await this.$http.get('/api/singer/list', {params})
+            const res = await request({
+                url:'/singer/list', 
+                data:{params}
+            })
             this.singerList = res.data.data.list
         }
     },

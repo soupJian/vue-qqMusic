@@ -55,6 +55,7 @@
 <script>
 import loading from '../../components/base/Load'
 import Scroll from '../../components/base/Scroll'
+import request from '../../common/js/request'
 export default {
     components:{
         Scroll,
@@ -88,13 +89,17 @@ export default {
         },
         // 获取mv相关信息以及推荐mv
         async fetchMv(){
-            const {data:{data: res}} = await this.$http.get('/api/mv?id='+this.vid)
+            const {data:{data: res}} = await request({
+                url: '/mv?id='+this.vid
+            })
             // console.log(res);
             this.mvRecommend = res.recommend
         },
         // 获取歌曲播放地址
         async fetchPlay(){
-            const {data:{data:res}} = await this.$http.get('/api/mv/url?id='+this.vid)
+            const {data:{data:res}} = await request({
+                url:'/mv/url?id='+this.vid
+            })
             this.mvsrc = res[this.vid][0]
         },
         mvready(){
@@ -133,7 +138,10 @@ export default {
                 pageSize: this.pageSize,
                 biztype: 5
             }
-            const {data:{data:res}} = await this.$http.get('/api/comment', {params})
+            const {data:{data:res}} = await request({
+                url: '/comment', 
+                data: params
+            })
             this.mvName = res.name
             this.total = res.comment.commenttotal
             this.commentList = res.comment.commentlist

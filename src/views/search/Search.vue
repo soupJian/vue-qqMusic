@@ -56,6 +56,7 @@ import loading from '../../components/base/Load'
 import QuickSearch from '../../components/quickSearch/QuickSearch'
 import Confirm from '../../components/base/Confirm'
 import { playListMixin } from '../../common/js/mixin'
+import request from '../../common/js/request'
 export default {
     mixins: [ playListMixin ], // 组件同名方法可以覆盖mixin方法
     components: {
@@ -79,7 +80,9 @@ export default {
         },
         // 获取热搜词
         async getHotSearch() {
-            const { data: { data: res } } = await this.$http.get('/api/search/hot')
+            const { data: { data: res } } = await request({
+                url:'/search/hot'
+            })
             this.hotSearch = res
         },
         // 点击热搜列表进行query

@@ -127,6 +127,7 @@ import scroll from '../base/Scroll'
 import playList from '../playList/PlayList'
 import Toast from '../base/Toast'
 import {playerMixin} from '../../common/js/mixin'
+import request from '../../common/js/request'
 export default {
     mixins: [playerMixin],
     data() {
@@ -192,7 +193,9 @@ export default {
         // 获取播放地址
         async fetchAudioSrc(mid) {
             this.audioSrc = ''
-            const { data: res } = await this.$http.get('/api/song/urls?id='+mid)
+            const { data: res } = await request({
+                url:'/song/urls?id='+mid
+            })
             if(JSON.stringify(res.data) == {}) { // 没有播放地址
                 this.audioSrc = ''
             } else {
@@ -208,7 +211,9 @@ export default {
         },
         // 获取歌词
         async fetchLyric(mid) {
-            const {data: res} = await this.$http.get('/api/lyric?songmid='+mid)
+            const {data: res} = await request({
+                url:'/lyric?songmid='+mid
+            })
             if(res.result == 100) {
                 // res.data.lyric // 歌词数据
                 this.currentLyric = new Lyric(res.data.lyric,this.handleLyric) //this.handleLyric回调函数

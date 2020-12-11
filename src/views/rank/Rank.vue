@@ -10,6 +10,7 @@
 <script>
 import Loading from '../../components/base/Load'
 import RankList from '../../components/rank/RankList'
+import request from '../../common/js/request'
 export default {
     name: 'rank',
     components: {
@@ -23,7 +24,10 @@ export default {
     },
     methods: {
         async fetchRank () {
-            const res = await this.$http.get('/api/top/category', { params: { showDetail: 1 } })
+            const res = await request({
+                url: '/top/category', 
+                data: { showDetail: 1 }
+            })
             /* 处理一下数据 */
             this.ranklist = res.data.data.reduce((total, item) => total.concat(item.list), [])
         }

@@ -18,6 +18,7 @@
     </div>
 </template>
 <script>
+import request from '../../common/js/request'
 export default {
     props: {
         query: {
@@ -42,7 +43,9 @@ export default {
     },
     methods: {
         async quickSearch() {
-            const {data: { data: res }} = await this.$http.get('/api/search/quick?key='+this.query)
+            const {data: { data: res }} = await request({
+                url:'/search/quick?key='+this.query
+            })
             this.quickObj = res
         },
         selectItem(item,list) {
@@ -83,7 +86,9 @@ export default {
             this.local()
         },
         async searchOne(name,singer) { // 解决快速搜索单曲没有歌曲的专辑信息，获取不到图片信息问题
-            const {data:{data:res}} = await this.$http.get('/api/song/find?key='+`${name+singer}`)
+            const {data:{data:res}} = await request({
+                url: '/song/find?key='+`${name+singer}`
+            })
             res.mid = res.songmid
             res.name = res.songname
             res.album = {

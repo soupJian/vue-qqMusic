@@ -19,6 +19,7 @@ import Disc from '../../components/base/Disc'
 import Scroll from '../../components/base/Scroll'
 import Loading from '../../components/base/Load'
 import { playListMixin } from '../../common/js/mixin'
+import request from '../../common/js/request'
 export default {
     mixins: [ playListMixin ],
     components: {
@@ -42,12 +43,16 @@ export default {
         },
 		/* 获取轮播图 */
 		async fetchBannerList () {
-			const { data:{ data: res } } = await this.$http.get('/api/recommend/banner')
+			const { data:{ data: res } } = await request({
+                url: '/recommend/banner'
+            })
                 this.BannerList = res  
         },
         // 获取推荐歌单
         async fetchDiscList () {
-			const { data: { data: res } } = await this.$http.get('/api/recommend/playlist/u')
+			const { data: { data: res } } = await request({
+                url: '/recommend/playlist/u'
+            })
             this.DiscList = res.list
         },
         // scroll刷新高度

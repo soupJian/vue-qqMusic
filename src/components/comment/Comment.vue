@@ -35,6 +35,7 @@ import { playListMixin } from '../../common/js/mixin'
 import scroll from '../base/Scroll'
 import loading from '../base/Load'
 import NoResult from '../result/NoResult'
+import request from '../../common/js/request'
 export default {
     mixins: [ playListMixin ], // 组件同名方法可以覆盖mixin方法
     components: {
@@ -64,7 +65,10 @@ export default {
         async getComment() {
             this.hasMore = true
             const params = { id: this.id, pageSize: this.pageSize,type: 1}
-            const {data: {data: res}} = await this.$http.get('/api/comment', {params})
+            const {data: {data: res}} = await request({
+                url:'/comment', 
+                data:params
+            })
             this.title = res.name
             this.total = res.comment.commenttotal
             this.hotComment = res.comment.commentlist
