@@ -72,6 +72,7 @@ export default {
                     path: '/singer/mid='+singer[0].singer_mid
                 })
                 this.$store.commit('setSinger', singer[0])
+                this.$store.commit("setValue",'歌手')
             }
             if(item.name=="单曲") {
                 this.searchOne(list.name,list.singer)
