@@ -379,12 +379,13 @@ export default {
     },
     watch: {
         currentSong(newSong,oldSong) {
-            if(newSong.mid === oldSong.mid){
-                return
-            }
             // 歌曲改变进行本地存储
             if(this.currentSong == undefined) {
                 this.$store.commit('setCurrentSong',{})
+                return
+            }
+            
+            if(newSong.mid && newSong.mid === oldSong.mid){
                 return
             }
             this.fetchAudioSrc(this.currentSong.mid)
@@ -404,7 +405,7 @@ export default {
         playing() {
             const audio = this.$refs.audio
             this.playing ? audio.play() : audio.pause()
-        }
+        },
     },
     components: {
         progressBar,

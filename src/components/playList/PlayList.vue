@@ -95,9 +95,8 @@ export default {
             if(index == this.playList.length) {
                 this.$store.commit("setCurrentIndex", 0)
             }
-            // 清空了列表，路由返回
+            // 清空了列表
             if(this.playList.length == 0) {
-                this.$router.back()
                 this.deleteAll()
             }
             this.$store.commit('setPlayList',this.playList)
